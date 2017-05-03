@@ -66,6 +66,7 @@ module.exports = function (grunt) {
 
         this.files.forEach(function (file) {
             var expandedPath = file.orig.expand || false;
+            var internalData = file.data ? file.data : data;
 
             if (!expandedPath && 1 < file.src.length) {
                 grunt.warn('writing multiple sources to single destination: ' + file.dest + '!');
@@ -81,7 +82,7 @@ module.exports = function (grunt) {
                     tpl = parser.compile(grunt.file.read(src));
                     dest = (options.preserveExtension || !expandedPath) ? file.dest : file.dest.slice(0, (path.extname(file.dest).length * -1));
 
-                    grunt.file.write(dest, tpl(data), {
+                    grunt.file.write(dest, tpl(internalData), {
                         encoding: options.encoding
                     });
 

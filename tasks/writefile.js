@@ -65,8 +65,8 @@ module.exports = function (grunt) {
         var processed = 0;
 
         this.files.forEach(function (file) {
-            var expandedPath = file.orig.expand || false;
-            var internalData = file.data ? file.data : data;
+            var expandedPath = file.orig.expand || false;            
+            var internalData = Object.assign(data, file.customData ? file.customData : {});
 
             if (!expandedPath && 1 < file.src.length) {
                 grunt.warn('writing multiple sources to single destination: ' + file.dest + '!');
